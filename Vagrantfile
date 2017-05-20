@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   #core depencies
   config.vm.provision :shell, inline: "apt-get update"
-  config.vm.provision :shell, inline: "apt-get -y install curl wget git mercurial make binutils bison gcc build-essential"   
+  config.vm.provision :shell, inline: "apt-get -y install curl jq wget git mercurial make binutils bison gcc build-essential"   
 
   #Vundle
   config.vm.provision "file", source: "vimrc", destination: ".vimrc"
