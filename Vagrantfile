@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   #core depencies
   config.vm.provision :shell, inline: "apt-get update"
-  config.vm.provision :shell, inline: "apt-get -y install curl jq wget git mercurial make binutils bison gcc build-essential"   
+  config.vm.provision :shell, inline: "apt-get -y install curl jq xclip wget git mercurial make binutils bison gcc build-essential"   
 
   #Vundle
   config.vm.provision "file", source: "vimrc", destination: ".vimrc"
@@ -50,10 +50,18 @@ Vagrant.configure("2") do |config|
     rm -rf /usr/local/go
     mv -f go /usr/local
     export GOROOT=/usr/local/go
-    export GOPATH=$HOME/src
+    export GOPATH=/home/vagrant/src
     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
     echo "export GOROOT=/usr/local/go" >> /home/vagrant/.zshrc
-    echo "export GOPATH=$HOME/src" >> /home/vagrant/.zshrc
+    echo "export GOPATH=/home/vagrant/src" >> /home/vagrant/.zshrc
     echo "PATH=$GOPATH/bin:$GOROOT/bin:$PATH" >> /home/vagrant/.zshrc
+  SHELL
+
+  #Micro editor
+  config.vm.provision "shell", inline: <<-SHELL
+    wget -q https://github.com/zyedidia/micro/releases/download/v1.1.4/micro-1.1.4-linux64.tar.gz
+    tar -xvf micro-1.1.4-linux64.tar.gz
+    rm -rf /bin/micro
+    mv -f micro-1.1.4/micro /bin/micro
   SHELL
 end
